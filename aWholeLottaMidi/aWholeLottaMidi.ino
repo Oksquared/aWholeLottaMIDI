@@ -6,7 +6,7 @@ This Sketch turns a pin on for "pinOnTimeMs" when a NoteOn signal is received
 
 **/
 
-int lowEndNote = 40;
+int lowEndNote = 48;
 const uint32_t pinOnTimeMs = 50;
 
 
@@ -16,8 +16,8 @@ const uint32_t pinOnTimeMs = 50;
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
 const int numIOPins = 32;
 const int ioPins[] = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24, 25, 26, 27, 28, 37, 38, 39, 40, 41, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
-bool ioPinStates[32];
-uint32_t ioPinTimes[32];
+bool ioPinStates[numIOPins];
+uint32_t ioPinTimes[numIOPins];
 const int highEndNote = lowEndNote + numIOPins;
 
 
@@ -57,9 +57,9 @@ void loop() {
             ioPinTimes[note - lowEndNote] = millis();       // capture time note was pressed
             digitalWrite(ioPins[offsetNote], HIGH);         // drive pin aligned to note, HIGH
 
-            serial.print("output: ");
-            Serial.print(offsetNote);
-            "DigitalWriting Pin :"
+            Serial.print("output: ");
+            Serial.println(offsetNote);
+            
           } else {
             Serial.println(String("Note Off: ch=") + channel + ", note=" + note);
           }
